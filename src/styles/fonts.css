@@ -1,0 +1,16 @@
+@font-face {
+    font-family: 'Adam';
+    src: url('../assets/fonts/Adam/Adam-Bold.ttf');
+    font-weight: bold;
+}
+@font-face {
+    font-family: 'Adam';
+    src: url('../assets/fonts/Adam/Adam-Light.ttf');
+    font-weight: lighter;
+}
+
+@font-face {
+    font-family: 'Caviar Dreams';
+    src: url('../assets/fonts/CaviarDreams/CaviarDreams.ttf');
+    font-weight: normal;
+}
