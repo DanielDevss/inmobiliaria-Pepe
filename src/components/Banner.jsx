@@ -1,18 +1,14 @@
 import {Parallax} from 'react-parallax'
-import {Link} from 'react-router-dom'
 
 import Flecha from '../assets/images/layout/flecha.png'
 import FlechaDark from '../assets/images/layout/flecha-dark.png'
+import Logotipo from '../assets/images/main/logotipo.png'
 
-const Banner = ({fondo,titulo,subtitulo, idScroll, darkMode}) => {
-  return (
-    
-    <Parallax bgImage={fondo} strength={500}>
-
-        <header className="banner">
-        
+const BannerInfo = ({titulo, subtitulo, mainMode}) => {
+    if(!mainMode){
+        return (
             <article className='banner__info'>
-        
+            
                 <div className='banner__vineta'></div>
         
                 <section className='banner__textos'>
@@ -24,12 +20,29 @@ const Banner = ({fondo,titulo,subtitulo, idScroll, darkMode}) => {
                 </section>
         
             </article>
+        )
+    }else{
+        return (
+            <img className='banner__logo' src={Logotipo} alt='Logotipo'></img>
+        )
+    }
+}
+
+const Banner = ({fondo,titulo,subtitulo,idScroll,mainMode}) => {
+    
+  return (
+    
+    <Parallax bgImage={fondo} strength={500}>
+
+        <header className="banner">
         
-            <a className='banner__bajar' href={`#${idScroll}`}>
+            <BannerInfo titulo={titulo} subtitulo={subtitulo} mainMode={mainMode} />
+        
+            <a className={`banner__bajar ${mainMode ? 'main' : ''}`} href={`#${idScroll}`}>
         
                 <p>Descubrir</p>
         
-                <img src={!darkMode ? Flecha : FlechaDark} alt="Flecha para bajar" />
+                <img src={!mainMode ? Flecha : FlechaDark} alt="Flecha para bajar" />
         
             </a>
         

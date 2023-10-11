@@ -1,9 +1,7 @@
-import React from 'react'
-
-const CardRounded = ({icono, titulo, texto}) => {
+const CardRounded = ({icono, titulo, texto, mainMode}) => {
   return (
     
-    <article className='servicios__card'>
+    <article className={`servicios__card ${mainMode ? 'main' : ''}`}>
         
         <img src={icono} alt={`Icono del servicio ${titulo}`} />
         

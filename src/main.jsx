@@ -8,6 +8,11 @@ import Layout from './pages/Layout'
 import Inicio from './pages/Inicio'
 import Servicios from './pages/Servicios'
 import Contacto from './pages/Contacto'
+import Login, {action as loginAction} from './pages/Login'
+import LayoutDashboard, {loader as verifyTokenLoader} from './pages/LayoutDashboard'
+import GestionPropiedad from './pages/GestionPropiedad'
+import Dashboard from './pages/Dashboard'
+
 
 const router = createBrowserRouter([
   {
@@ -19,13 +24,41 @@ const router = createBrowserRouter([
         element: <Inicio />
       },
       {
-        path: 'servicios',
+        path: '/servicios',
         element: <Servicios />
       },
       {
-        path: 'contactanos',
+        path: '/contactanos',
         element: <Contacto />
       },
+    ]
+  },
+  {
+    path: '/login',
+    element: <Login />,
+    action: loginAction
+  },
+  {
+    path: '/dashboard',
+    element: <LayoutDashboard />,
+    loader: verifyTokenLoader,
+    children: [
+      {
+        path: '',
+        element: <Dashboard />
+      },
+      {
+        path: ':categoria',
+        element: <Dashboard />
+      },
+      {
+        path: 'nueva-propiedad',
+        element: <GestionPropiedad />,
+      },
+      {
+        path: 'editar-propiedad/:id',
+        element: <GestionPropiedad />,
+      }
     ]
   }
 ])

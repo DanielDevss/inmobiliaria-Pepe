@@ -1,7 +1,7 @@
 import {Outlet, Link, NavLink} from 'react-router-dom'
 import { Parallax } from 'react-parallax'
 
-import React, {useState} from 'react'
+import {useState, useEffect} from 'react'
 import {FaWhatsapp, FaFacebookF, FaInstagram, FaEnvelope, FaXmark, FaBars, FaLinkedinIn, FaRegCopyright} from 'react-icons/fa6'
 
 import AOS from 'aos'
@@ -12,26 +12,55 @@ import '../styles/index.css'
 import LogoImage from '../assets/images/layout/logo.png'
 import LogoFull from '../assets/images/layout/logotipo.png'
 import Background from '../assets/images/layout/fondo.jpg'
+import Details from '../components/Details'
 
 const Layout = () => {
 
-  const [openMenu ,setOpenMenu] = useState(false)
+  useEffect(() => {
+    AOS.init({});
+  }, [])
+
+  const [openMenu ,setOpenMenu] = useState(false);
+
+  const [propiedad, setPropiedad] = useState({});
+
+  const [ventana, setVentana] = useState(false)
+
+  const handleClickLink = () => {
+    console.log("top")
+    window.scrollTo({top:0, behavior: "smooth"})
+  }
 
   const handlerShowMenu = () => {
-    setOpenMenu(true);
+    setOpenMenu(true)
   }
   const handlerCloseMenu = () => {
-    setOpenMenu(false);
+    setOpenMenu(false)
+    handleClickLink()
   }
 
-  const linkWhats = "https://wa.link/59tbk0"
-  const correoElectronico = "luisdaniel.fdk@gmail.com"
-  const linkFacebook = "";
-  const linkInstagram = "";
-  const linkLinkedin = "";
+  const linkWhats = import.meta.env.VITE_URL_WHATSAPP
+  const correoElectronico = import.meta.env.VITE_CORREO
+  const linkFacebook = import.meta.env.VITE_URL_FACEBOOK
+  const linkInstagram = import.meta.env.VITE_URL_INSTAGRAM
+  const linkLinkedin = import.meta.env.VITE_URL_LINKEDIN
 
   return (
+
     <>
+
+      {propiedad && (
+      <section className={`ventana ${ventana && 'active'}`}>
+
+        <div className='ventana__contenido'>
+          
+          <Details setVentana={setVentana} propiedad={propiedad} />
+
+        </div>
+
+      </section>
+      )}
+
       <section className='navbar'>
           
           <img data-aos="zoom-out-right" className='navbar__logo' src={LogoImage} alt="Logo de Pepe Alonso" />
@@ -46,7 +75,7 @@ const Layout = () => {
             
             <Link className='navbar__link navbar__link--responsive' to={linkWhats}><FaWhatsapp />WhatsApp</Link>
             
-            <Link className='navbar__link navbar__link--responsive' to={linkWhats}><FaEnvelope />Correo</Link>
+            <Link className='navbar__link navbar__link--responsive' to={"mailto:"+correoElectronico}><FaEnvelope />Correo</Link>
             
             <button onClick={handlerCloseMenu} className='navbar__close'><FaXmark /></button>
           
@@ -64,7 +93,7 @@ const Layout = () => {
       
       </section>
 
-      <Outlet />
+      <Outlet context={{setPropiedad, setVentana}} />
 
       <Parallax data-aos="fade-up" strength={400} blur={{min:-4, max:0}} bgImage={Background}>
 
@@ -74,11 +103,11 @@ const Layout = () => {
           
           <nav className='footer__nav'>
             
-            <NavLink data-aos="fade-in-left" to="/" className='footer__link'>Inicio</NavLink>
+            <NavLink onClick={handleClickLink} data-aos="fade-in-left" to="/" className='footer__link'>Inicio</NavLink>
             
-            <NavLink data-aos="fade-in-right" to="/servicios" className='footer__link'>Servicios</NavLink>
+            <NavLink onClick={handleClickLink} data-aos="fade-in-right" to="/servicios" className='footer__link'>Servicios</NavLink>
             
-            <NavLink data-aos="fade-in-left" to="/contactanos" className='footer__link'>Contacto</NavLink>
+            <NavLink onClick={handleClickLink} data-aos="fade-in-left" to="/contactanos" className='footer__link'>Contacto</NavLink>
 
             <div className='footer__mensajes'>
 
