@@ -49,7 +49,6 @@ const Details = ({setVentana, propiedad}) => {
             <div className='details__textos'>
 
                 <h2 className='details__nombre'>{propiedad.propiedad}</h2>
-                <p className='details__details'>{propiedad.descripcion}</p>
             
             </div>
             
@@ -57,32 +56,37 @@ const Details = ({setVentana, propiedad}) => {
 
         </header>
 
-        <figure className='details__preview'>
-            {!videoPreview ? (
-                <img className='details__preview__element' src={imagePreview ? imagePreview : import.meta.env.VITE_URL_API + propiedad.image_1} alt="Imagen de prueba" />
-            ) : (
-                <YouTube className='details__preview__element' videoId={videoPreview} />
-            )}
-        </figure>
-
-        <div className='details__contenedor'>
-            <div className='details__images'>
-                {renderImages()}
-            </div>
-            <div className='details__videos'>
-                {propiedad.url1 && (
-                <div onClick={() => handleSelectVideo(propiedad.url1)} className='details__video'>
-                    <FaPlay />
-                </div>
+        <section className='details__body'>
+            <figure className='details__preview'>
+                {!videoPreview ? (
+                    <img className='details__preview__element' src={imagePreview ? imagePreview : import.meta.env.VITE_URL_API + propiedad.image_1} alt="Imagen de prueba" />
+                ) : (
+                    <YouTube className='details__preview__element' videoId={videoPreview} />
                 )}
-                {propiedad.url2 && (
-                <div onClick={() => handleSelectVideo(propiedad.url2)} className='details__video'>
-                    <FaPlay />
+                <p className='details__details'>{propiedad.descripcion}</p>
+            </figure>
+            
+            <div className='details__contenedor'>
+                <div className='details__images'>
+                    {renderImages()}
                 </div>
+                {(propiedad.url1 && propiedad.url2) && (
+                    <div className='details__videos'>
+                        {propiedad.url1 && (
+                        <div onClick={() => handleSelectVideo(propiedad.url1)} className='details__video'>
+                            <FaPlay className='icon' />
+                        </div>
+                        )}
+                        {propiedad.url2 && (
+                        <div onClick={() => handleSelectVideo(propiedad.url2)} className='details__video'>
+                            <FaPlay className='icon' />
+                        </div>
+                        )}
+                    </div>
+
                 )}
             </div>
-        </div>
-
+        </section>
     </section>
   )
 }

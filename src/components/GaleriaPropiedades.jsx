@@ -89,7 +89,7 @@ const GaleriaPropiedades = ({setPropiedad, setVentana}) => {
                 </figure>
                 <section className='gridpropiedades__propiedad__section'>
                     <h3 className='gridpropiedades__propiedad__titulo'>{e.propiedad}</h3>
-                    <p className='gridpropiedades__propiedad__descripcion'>{e.descripcion}</p>
+                    {/* <p className='gridpropiedades__propiedad__descripcion'>{e.descripcion}</p> */}
                 </section>
             </article>
         ) )}
